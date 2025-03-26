@@ -41,7 +41,7 @@ public class Character : MonoBehaviour
 
     void ApplyMovement()
     {
-        rb.velocity = new Vector2(horizontal * speed, vertical * speed);
+        rb.linearVelocity = new Vector2(horizontal * speed, vertical * speed);
     }
 
     void ApplyAnimations()
@@ -51,8 +51,8 @@ public class Character : MonoBehaviour
             movementDirection = 0;
             return;
         }
-        float hVelocity = rb.velocity.x;
-        float vVelocity = rb.velocity.y;
+        float hVelocity = rb.linearVelocity.x;
+        float vVelocity = rb.linearVelocity.y;
         float hVelocityAbs = Mathf.Abs(hVelocity);
         float vVelocityAbs = Mathf.Abs(vVelocity);
 
