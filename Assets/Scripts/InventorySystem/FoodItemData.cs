@@ -5,5 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Inventory/Item Data/Food Item Data")]
 public class FoodItemData : ItemData
 {
-    public int hpBuff;
+    public override string GetPocketName()
+    {
+        return "Food";
+    }
 }

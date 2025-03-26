@@ -16,4 +16,4 @@ MonoBehaviour:
   itemName: Shrimp
   icon: {fileID: 21300000, guid: 80c1df31a043969499345d345160c679, type: 3}
   description: A single fried shrimp. Delicious, yet not nutritious.
-  hpBuff: 2
+  buffAmount: 2

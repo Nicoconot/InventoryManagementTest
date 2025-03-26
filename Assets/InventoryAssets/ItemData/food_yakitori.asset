@@ -17,4 +17,4 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 13adb34b9885e40499ec2df0fff4bec4, type: 3}
   description: Skewered chicken with a delicious sweet and sour sauce on top. Somewhat
     fulfilling.
-  hpBuff: 5
+  buffAmount: 5

@@ -5,11 +5,17 @@ using UnityEngine;
 
 public class Player : Character
 {
-    public PlayerInventory playerInventory;
+    private PlayerInventory playerInventory;
     protected override void Awake()
     {
         GameManager.Instance.player = this;
+        playerInventory = GetComponent<PlayerInventory>();
         base.Awake();
+    }
+
+    public bool AddItemToInventory(ItemData itemData)
+    {
+        return playerInventory.AddItem(itemData);
     }
 
     void Update()

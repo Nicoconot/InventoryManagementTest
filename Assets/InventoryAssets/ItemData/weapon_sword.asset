@@ -16,4 +16,4 @@ MonoBehaviour:
   itemName: Sword
   icon: {fileID: 21300000, guid: c6a181a635a86014fbb66d12c0673e9e, type: 3}
   description: A plain old steel sword. Doesn't do crazy damage, but it's a start.
-  damage: 3
+  buffAmount: 3

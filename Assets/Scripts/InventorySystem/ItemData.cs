@@ -11,4 +11,11 @@ public class ItemData : ScriptableObject
     public Sprite icon;
 
     [TextArea] public string description; //for hover text
+
+    public int buffAmount = 0;
+    
+    public virtual string GetPocketName()
+    {
+        return "";
+    }
 }

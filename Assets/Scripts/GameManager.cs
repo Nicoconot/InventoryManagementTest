@@ -11,9 +11,11 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public InventoryManager inventoryManager;
+    public UIManager uiManager;
     public Player player;
 
     public UnityAction OnInventoryManagerReady;
+    public UnityAction OnInventoryPocketsReady;
 
     void Awake()
     {
@@ -29,4 +31,5 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
     }
+    
 }
