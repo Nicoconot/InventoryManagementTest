@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public List<Item> items;
+    public List<Item> items = new();
 
     void Awake()
     {
@@ -13,15 +13,12 @@ public class PlayerInventory : MonoBehaviour
     public void Init()
     {
         GameManager.Instance.OnInventoryPocketsReady -= Init;
-        //Temporary. We have a debug list for now, but eventually it'll be replaced with the actual loading function
-        GameManager.Instance.inventoryManager.LoadInventory(items);
+        GameManager.Instance.inventoryManager.OnInventoryChanged += UpdateInventory;
     }
 
     public bool AddItem(ItemData itemData)
     {
-        bool success = GameManager.Instance.inventoryManager.TryAddItemToPocket(itemData);
-        if(success) UpdateInventory();
-        return success;
+        return GameManager.Instance.inventoryManager.TryAddItemToPocket(itemData);
     }
 
     public void RemoveItem()

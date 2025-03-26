@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class InventoryManager : MonoBehaviour
 
     [SerializeField] private List<Pocket> pockets = new();
     private int totalPockets, loadedPockets;
+
+    public UnityAction OnInventoryChanged;
 
     void Start()
     {
@@ -51,9 +54,12 @@ public class InventoryManager : MonoBehaviour
     {
         foreach(var pocket in pockets)
         {
+            pocket.ClearItems();
             var pocketItems = allItems.FindAll(x => x.itemData.GetPocketName() == pocket.pocketName);
             pocket.LoadItems(pocketItems);
         }
+
+        OnInventoryChanged?.Invoke();
     }
 
     public bool TryAddItemToPocket(ItemData item)
@@ -66,7 +72,9 @@ public class InventoryManager : MonoBehaviour
             return false;
         }
 
-        return pocket.TryAddItem(new Item(item));
+        bool success = pocket.TryAddItem(new Item(item));
+        OnInventoryChanged?.Invoke();
+        return success;
     }
 
     public List<Item> GetAllItems()

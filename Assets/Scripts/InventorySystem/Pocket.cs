@@ -34,6 +34,7 @@ public class Pocket : MonoBehaviour
     void PopulateSlots()
     {
         GameManager.Instance.OnInventoryManagerReady -= PopulateSlots;
+        GameManager.Instance.inventoryManager.OnInventoryChanged += UpdateTitle;
 
         var slotPrefab = GameManager.Instance.inventoryManager.RetrievePrefab("inventorySlot");
 
@@ -103,8 +104,13 @@ public class Pocket : MonoBehaviour
         }
 
         pocketItems.OrderBy(x => x.slot);
+    }
 
-        UpdateTitle();
+    public void ClearItems()
+    {
+        pocketItems.Clear();
+
+        foreach(var slot in slots) slot.Clear();
     }
 
     public bool TryAddItem(Item item)

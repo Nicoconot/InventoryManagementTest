@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 
     public InventoryManager inventoryManager;
     public UIManager uiManager;
+
+    public GameSerializer gameSerializer;
     public Player player;
 
     public UnityAction OnInventoryManagerReady;

@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private Image icon;
+    [SerializeField] private Sprite emptySprite;
     private Item item;
     private RectTransform rt;
 
@@ -23,6 +24,12 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         if (item == null) return;
         icon.sprite = item.itemData.icon;
         this.item = item;
+    }
+
+    public void Clear()
+    {
+        icon.sprite = emptySprite;
+        item = null;
     }
 
     public void OnPointerEnter(PointerEventData eventData)

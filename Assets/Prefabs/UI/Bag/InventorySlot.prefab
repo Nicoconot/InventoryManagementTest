@@ -90,6 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 1734147585359173293}
+  emptySprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &8681120232708605640
 GameObject:
   m_ObjectHideFlags: 0
