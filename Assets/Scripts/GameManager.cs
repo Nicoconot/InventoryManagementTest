@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     public InventoryManager inventoryManager;
+    public Player player;
 
     public UnityAction OnInventoryManagerReady;
 

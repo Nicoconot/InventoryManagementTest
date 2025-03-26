@@ -7,11 +7,8 @@ public class InventorySlot : MonoBehaviour
 {
     [SerializeField] private Image icon;
 
-    void Awake()
+    public void Setup(Sprite sprite)
     {
-        //testing
-        var color = icon.color;
-        color.a = Random.Range(0.3f, 1);
-        icon.color = color;
+        icon.sprite = sprite;
     }
 }

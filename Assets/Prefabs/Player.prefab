@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 381174989933991380}
   - component: {fileID: 381174989933991379}
   - component: {fileID: 381174989933991378}
+  - component: {fileID: 820528332}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 381174989933991384}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.522, y: -0.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -121,6 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  playerInventory: {fileID: 820528332}
 --- !u!50 &381174989933991379
 Rigidbody2D:
   serializedVersion: 4
@@ -168,3 +170,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6, y: 0.75406843}
   m_EdgeRadius: 0
+--- !u!114 &820528332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381174989933991384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb81f24747c8bc4bb289a25ede76377, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items:
+  - itemData: {fileID: 11400000, guid: 89b981894ba1cd944bb1242da74c53cc, type: 2}
+    slot: 0
+  - itemData: {fileID: 11400000, guid: 4ed65116bf11a4049a4bc2c74a057a8a, type: 2}
+    slot: 0
+  - itemData: {fileID: 11400000, guid: 06712fde30a835d428527a5b6f891fb3, type: 2}
+    slot: 0
+  - itemData: {fileID: 11400000, guid: 4dc947a8c64eaaf4ba4b3d51f6be11f6, type: 2}
+    slot: 1
+  - itemData: {fileID: 11400000, guid: 89b981894ba1cd944bb1242da74c53cc, type: 2}
+    slot: 2

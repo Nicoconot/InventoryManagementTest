@@ -18,7 +18,7 @@ public class Character : MonoBehaviour
     protected float horizontal, vertical;
     protected bool isMoving = false;
 
-    void Awake()
+    protected virtual void Awake()
     {
         controller = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();

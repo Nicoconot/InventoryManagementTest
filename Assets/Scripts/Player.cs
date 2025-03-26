@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class Player : Character
 {
+    public PlayerInventory playerInventory;
+    protected override void Awake()
+    {
+        GameManager.Instance.player = this;
+        base.Awake();
+    }
+
     void Update()
     {
         GetMovement();

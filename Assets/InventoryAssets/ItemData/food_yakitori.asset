@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef7bd61affafe79429d05aef08fa0bce, type: 3}
+  m_Name: food_yakitori
+  m_EditorClassIdentifier: 
+  itemId: food_yakitori
+  itemName: Yakitori
+  icon: {fileID: 21300000, guid: 13adb34b9885e40499ec2df0fff4bec4, type: 3}
+  description: Skewered chicken with a delicious sweet and sour sauce on top. Somewhat
+    fulfilling.
+  hpBuff: 5

@@ -7,8 +7,10 @@ using UnityEngine.UI;
 public class Pocket : MonoBehaviour
 {
     public string Id = "pocket_Food";
-    public string name = "Food";
+    public string pocketName = "Food";
     public int maxSlots = 16;
+
+    private List<InventorySlot> slots = new();
 
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private Transform slotsParent;
@@ -22,7 +24,7 @@ public class Pocket : MonoBehaviour
 
     void UpdateTitle()
     {
-        titleText.text = $"{name}   {totalItems}/{maxSlots}";
+        titleText.text = $"{pocketName}   {totalItems}/{maxSlots}";
     }
 
     void PopulateSlots()
@@ -34,8 +36,29 @@ public class Pocket : MonoBehaviour
         if(slotPrefab == null) return;
         for (int i = 0; i < maxSlots; i++)
         {
-            Instantiate(slotPrefab, slotsParent);
+            slots.Add(Instantiate(slotPrefab, slotsParent).GetComponent<InventorySlot>());
+        }        
+
+        UpdateInventory();        
+    }
+
+    void UpdateInventory()
+    {
+        List<Item> pocketItems = new();
+
+        if(pocketName == "Food")
+        pocketItems = GameManager.Instance.player.playerInventory.items.FindAll(x => x.itemData is FoodItemData);
+        else if(pocketName == "Weapons")
+        pocketItems = GameManager.Instance.player.playerInventory.items.FindAll(x => x.itemData is WeaponItemData);
+        else if(pocketName == "Miscellaneous")
+        pocketItems = GameManager.Instance.player.playerInventory.items.FindAll(x => x.itemData is MiscItemData);
+
+        foreach(var item in pocketItems)
+        {
+            slots[item.slot].Setup(item.itemData.icon);
         }
+
+        totalItems = pocketItems.Count;
 
         UpdateTitle();
     }
