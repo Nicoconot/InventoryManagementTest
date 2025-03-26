@@ -43,31 +43,10 @@ public class Pocket : MonoBehaviour
             slots.Add(Instantiate(slotPrefab, slotsParent).GetComponent<InventorySlot>());
         }        
 
-        //UpdateInventory();     
         UpdateTitle(); 
         GameManager.Instance.inventoryManager.RegisterPocket(this);  
     }
 
-    /*void UpdateInventory()
-    {
-        pocketItems.Clear();
-
-        if(pocketName == "Food")
-        pocketItems = GameManager.Instance.player.playerInventory.items.FindAll(x => x.itemData is FoodItemData);
-        else if(pocketName == "Weapons")
-        pocketItems = GameManager.Instance.player.playerInventory.items.FindAll(x => x.itemData is WeaponItemData);
-        else if(pocketName == "Miscellaneous")
-        pocketItems = GameManager.Instance.player.playerInventory.items.FindAll(x => x.itemData is MiscItemData);
-
-        foreach(var item in pocketItems)
-        {
-            slots[item.slot].Setup(item.itemData.icon);
-        }
-
-        totalItems = pocketItems.Count;
-
-        UpdateTitle();
-    }*/
 
     //Used for initialization
     public void LoadItems(List<Item> items)
@@ -124,6 +103,8 @@ public class Pocket : MonoBehaviour
         }
 
         pocketItems.OrderBy(x => x.slot);
+
+        UpdateTitle();
     }
 
     public bool TryAddItem(Item item)
@@ -163,6 +144,8 @@ public class Pocket : MonoBehaviour
         nextFreeSlot.Setup(item);
         pocketItems.Add(item);
         totalItems++;
+
+        UpdateTitle();
 
         return true;
     }
