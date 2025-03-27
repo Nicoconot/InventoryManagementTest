@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,13 +14,12 @@ public class ToolMenu : MonoBehaviour
 
     private void Awake()
     {
-        GameManager.Instance.OnInventoryManagerReady += Init;
         GameManager.Instance.toolMenu = this;
     }
 
-    private void Init()
+    private void Start()
     {
-        GameManager.Instance.inventoryManager.OnInventoryChanged += UpdateView;
+        StartCoroutine(UpdateViewCoroutine());
     }
 
     public void UseQuickWeapon()
@@ -51,6 +51,12 @@ public class ToolMenu : MonoBehaviour
             foodImages[i].sprite = defaultSprite;
             quickFoods[i] = null;
         }
+    }
+
+    private IEnumerator UpdateViewCoroutine()
+    {
+        yield return new WaitForEndOfFrame();
+        UpdateView();
     }
 
     private void UpdateView()
