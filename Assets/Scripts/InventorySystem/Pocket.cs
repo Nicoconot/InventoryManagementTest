@@ -11,8 +11,6 @@ public class Pocket : MonoBehaviour
     public string pocketName = "Food";
     public int maxSlots = 16;
 
-    public int totalItems = 0; //temporary
-
     private List<InventorySlot> slots = new();
     public List<Item> pocketItems = new();
 
@@ -28,7 +26,7 @@ public class Pocket : MonoBehaviour
 
     void Refresh()
     {
-        titleText.text = $"{pocketName}   {totalItems}/{maxSlots}";
+        titleText.text = $"{pocketName}   {pocketItems.Count}/{maxSlots}";
         pocketItems.OrderBy(x => x.slot);
     }
 
@@ -56,7 +54,6 @@ public class Pocket : MonoBehaviour
     public void LoadItems(List<Item> items)
     {
         pocketItems.Clear();
-        totalItems = 0;
         List<Item> queuedItems = new();
 
         //We will add all items to their respective slots if they have a preset slot and it 
@@ -74,13 +71,12 @@ public class Pocket : MonoBehaviour
             {
                 slots[desiredSlot].Setup(pocketName, currItem);
                 pocketItems.Add(currItem);
-                totalItems++;
             }
         }
 
         foreach(var item in queuedItems)
         {
-            if(totalItems < maxSlots)
+            if(pocketItems.Count < maxSlots)
             {
                 //if there is space
                 var nextFreeSlot = slots.FirstOrDefault(x => x.Item == null);
@@ -96,7 +92,6 @@ public class Pocket : MonoBehaviour
                 item.slot = slots.IndexOf(nextFreeSlot);
                 nextFreeSlot.Setup(pocketName, item);
                 pocketItems.Add(item);
-                totalItems++;
             }
             else
             {
@@ -118,7 +113,7 @@ public class Pocket : MonoBehaviour
 
     public bool TryAddItem(Item item)
     {
-        if(totalItems >= maxSlots)
+        if(pocketItems.Count >= maxSlots)
         {
             //inventory is full. Do not pick up
             return false;
@@ -131,7 +126,6 @@ public class Pocket : MonoBehaviour
             {
                 slot.Setup(pocketName,  item);
                 pocketItems.Add(item);
-                totalItems++;
                 return true;
             }
             //if slot is already occupied, something is wrong. Item will be assigned a new slot, but this shouldn't happen.
@@ -152,7 +146,6 @@ public class Pocket : MonoBehaviour
         item.slot = slots.IndexOf(nextFreeSlot);
         nextFreeSlot.Setup(pocketName, item);
         pocketItems.Add(item);
-        totalItems++;
 
         Refresh();
 
@@ -164,11 +157,14 @@ public class Pocket : MonoBehaviour
         slots[item.slot].Clear();
         pocketItems.Remove(item);
 
+        Refresh();
+
         return true;
     }
 
     public bool IsExpanded()
     {
+        if(pocketName == "Weapons") return true;
         return slotsParent.parent.parent.GetComponent<ScrollViewController>().IsExpanded;
     }
 

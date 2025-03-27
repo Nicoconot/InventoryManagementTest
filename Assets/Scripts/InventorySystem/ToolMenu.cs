@@ -60,8 +60,12 @@ public class ToolMenu : MonoBehaviour
         //Getting weapon
         var weapon = inventoryManager.GetFirstWeapon();
 
-        weaponImage.sprite = weapon.itemData.icon;
-        quickWeapon = weapon;
+        if(weapon != null)
+        {
+            weaponImage.sprite = weapon.itemData.icon;
+            quickWeapon = weapon;
+        }
+        
 
         //Getting foods
         var foods = inventoryManager.GetFirstFoods(3);
