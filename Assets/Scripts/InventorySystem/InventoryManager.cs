@@ -122,16 +122,16 @@ public class InventoryManager : MonoBehaviour
         return allItems;
     }
 
-    public ItemData GetFirstWeapon()
+    public Item GetFirstWeapon()
     {
         var item = pockets.Find(x => x.pocketName == "Weapons").pocketItems.FirstOrDefault<Item>();
         if (item == null) return null;
-        else return item.itemData;
+        else return item;
     }
 
-    public ItemData[] GetFirstFoods(int amount = 3)
+    public Item[] GetFirstFoods(int amount = 3)
     {
-        ItemData[] foods = new ItemData[amount];
+        Item[] foods = new Item[amount];
 
         var foodList = pockets.Find(x => x.pocketName == "Food").pocketItems;
 
@@ -140,7 +140,7 @@ public class InventoryManager : MonoBehaviour
         for(int i = 0; i < amount; i++)
         {
             if (i >= foodListArray.Length) break;
-            foods[i] = foodListArray[i].itemData;
+            foods[i] = foodListArray[i];
         }
 
         return foods;

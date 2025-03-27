@@ -6,9 +6,14 @@ public class GameData
 {
     public List<Item> playerInventory;
 
-    public GameData(List<Item> inventory)
+    public int currentPlayerHP;
+    public int currentPlayerCoins;
+
+    public GameData(List<Item> inventory, int playerHP, int playerCoins)
     {
         playerInventory = inventory;
+        currentPlayerHP = playerHP;
+        currentPlayerCoins = playerCoins;
     }
 
 }

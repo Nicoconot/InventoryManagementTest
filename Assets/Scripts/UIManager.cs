@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Canvas optionsCanvas;
 
     [SerializeField] private TextMeshProUGUI saveLog;
+    [SerializeField] private TextMeshProUGUI playerHealthText, uiHealthText;
 
     //public variables
     public Transform PocketsParent {get => pocketsParent; private set => pocketsParent = value;}
@@ -93,6 +94,15 @@ public class UIManager : MonoBehaviour
     public void StartDragging(Item item)
     {
         GameManager.Instance.dragAndDropHandler.StartDragging(item);
+    }
+    #endregion
+
+    #region General UI Management
+    public void UpdateHealthText(int hp, int maxHp)
+    {
+        string text = $": {hp}/{maxHp}";
+        playerHealthText.text = "Health" + text;
+        uiHealthText.text = "HP" + text;
     }
     #endregion
 }

@@ -17,6 +17,16 @@ public class Character : MonoBehaviour
 
     protected float horizontal, vertical;
     protected bool isMoving = false;
+    protected bool isDead = false;
+    protected bool canMove = true;
+
+    //Stats
+    protected int maxHp = 20;
+    protected int currentHp = 20;
+    protected int currentCoins = 0;
+
+    public int CurrentHp{get => currentHp; private set => currentHp = value; }
+    public int Coins{get => currentCoins; private set => currentCoins = value; }
 
     protected virtual void Awake()
     {
@@ -25,6 +35,40 @@ public class Character : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    public virtual void SetHP(int amount)
+    {
+        currentHp = amount;
+    }
+
+    public virtual void SetCoins(int amount)
+    {
+        currentCoins = amount;
+    }
+
+    public virtual void TakeDamage(int dmgAmount)
+    {
+        currentHp -= dmgAmount;
+
+        if(currentHp <= 0)
+        {
+            //dead
+            controller.SetBool("dead", true);
+            isDead = true;
+            canMove = false;
+        }
+    }
+
+    public virtual void RecoverHealth(int amount)
+    {
+        currentHp += amount;
+
+        Mathf.Clamp(currentHp, 0, maxHp);
+    }
+
+    public virtual void Attack()
+    {
+        controller.SetTrigger("attack");
+    }
 
     protected virtual void GetMovement()
     {

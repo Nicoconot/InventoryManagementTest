@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class GameSerializer : MonoBehaviour
 {
-    //We will be saving and loading only the player inventory for now
     private string dataPath;
 
     void Awake()
@@ -13,7 +12,9 @@ public class GameSerializer : MonoBehaviour
     }
     public bool CreateSaveData()
     {
-        GameData gameData = new GameData(GameManager.Instance.inventoryManager.GetAllItems());
+        GameData gameData = new GameData(GameManager.Instance.inventoryManager.GetAllItems(), 
+        GameManager.Instance.player.CurrentHp, 
+        GameManager.Instance.player.Coins);
 
         string jsonString = JsonUtility.ToJson(gameData);
 
@@ -30,6 +31,8 @@ public class GameSerializer : MonoBehaviour
             print("Game data null");
             return false;
         }
+        GameManager.Instance.player.SetHP(data.currentPlayerHP);
+        GameManager.Instance.player.SetCoins(data.currentPlayerCoins);
         GameManager.Instance.inventoryManager.LoadInventory(data.playerInventory);
 
         return true;

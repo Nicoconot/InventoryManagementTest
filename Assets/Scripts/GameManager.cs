@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public UIManager uiManager;
 
     public DragAndDropHandler dragAndDropHandler;
+    public ToolMenu toolMenu;
 
     public GameSerializer gameSerializer;
     public Player player;
