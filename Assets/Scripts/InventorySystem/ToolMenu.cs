@@ -18,8 +18,19 @@ public class ToolMenu : MonoBehaviour
         GameManager.Instance.inventoryManager.OnInventoryChanged += UpdateView;
     }
 
+    void Clear()
+    {
+        weaponImage.sprite = defaultSprite;
+
+        foreach(var foodImg in foodImages)
+        {
+            foodImg.sprite = defaultSprite;
+        }
+    }
+
     void UpdateView()
     {
+        Clear();
         var inventoryManager = GameManager.Instance.inventoryManager;
         //Getting weapon
         var weapon = inventoryManager.GetFirstWeapon();

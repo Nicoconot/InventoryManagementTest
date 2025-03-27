@@ -67,6 +67,10 @@ public class DragAndDropHandler : MonoBehaviour
                 }
                 break;
             }
+            if(result.gameObject.CompareTag("Trash"))
+            {
+                GameManager.Instance.inventoryManager.TryRemoveItemFromPocket(draggingItem);
+            }
         }
         GameManager.Instance.uiManager.ToggleBagCanvasInteractable(true);
     }
@@ -103,8 +107,6 @@ public class DragAndDropHandler : MonoBehaviour
 
 		List<RaycastResult> results = new List<RaycastResult>();
 		EventSystem.current.RaycastAll(pointerData, results);
-		
-		Debug.Log( results.Count);
 		
 		return results;
 	}

@@ -103,7 +103,11 @@ public class InventoryManager : MonoBehaviour
             return false;
         }
 
-        return pocket.TryRemoveItem(item);
+        bool success = pocket.TryRemoveItem(item);
+
+        OnInventoryChanged?.Invoke();
+
+        return success;
     }
 
     public List<Item> GetAllItems()
@@ -136,8 +140,6 @@ public class InventoryManager : MonoBehaviour
         for(int i = 0; i < amount; i++)
         {
             if (i >= foodListArray.Length) break;
-            
-            print($"{i}:{foodListArray[i].slot}");
             foods[i] = foodListArray[i].itemData;
         }
 
