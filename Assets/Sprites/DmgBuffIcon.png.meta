@@ -186,7 +186,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      DmgBuffIcon_0: 5280674013333097356
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
