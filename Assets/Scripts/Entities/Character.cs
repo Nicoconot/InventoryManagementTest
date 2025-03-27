@@ -62,7 +62,7 @@ public class Character : MonoBehaviour
     {
         currentHp += amount;
 
-        Mathf.Clamp(currentHp, 0, maxHp);
+        currentHp = Mathf.Clamp(currentHp, 0, maxHp);
     }
 
     public virtual void Attack()
