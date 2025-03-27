@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -11,10 +9,9 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] private Sprite emptySprite;
     private Item item;
     private RectTransform rt;
-
     private bool isPointerDown;
 
-    public Item Item {get => item; private set => item = value; }
+    public Item Item { get => item; private set => item = value; }
 
     public string parentPocketType;
 
@@ -28,7 +25,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         parentPocketType = pocketType;
         if (item == null) return;
         icon.sprite = item.itemData.icon;
-        this.item = item;        
+        this.item = item;
     }
 
     public void Clear()
@@ -39,7 +36,7 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if(item == null) return;
+        if (item == null) return;
         Vector2 pos = rt.position;
         int buffType = item.itemData.GetPocketName() switch
         {
@@ -47,22 +44,13 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             "Weapons" => 1,
             _ => -1
         };
-        GameManager.Instance.uiManager.ShowTooltip(item.itemData.itemName, 
+        GameManager.Instance.uiManager.ShowTooltip(item.itemData.itemName,
         item.itemData.description, pos, buffType, item.itemData.buffAmount);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         GameManager.Instance.uiManager.HideTooltip();
-    }
-
-    private void PickUpItem()
-    {
-        bool proceed =  GameManager.Instance.inventoryManager.CheckIfPocketIsExpanded(item.itemData.GetPocketName());
-
-        if(!proceed) return;
-
-        GameManager.Instance.uiManager.StartDragging(item);
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -82,6 +70,15 @@ public class InventorySlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         yield return new WaitForSeconds(.3f);
 
-        if(isPointerDown && item != null) PickUpItem();
+        if (isPointerDown && item != null) PickUpItem();
+    }
+
+    private void PickUpItem()
+    {
+        bool proceed = GameManager.Instance.inventoryManager.CheckIfPocketIsExpanded(item.itemData.GetPocketName());
+
+        if (!proceed) return;
+
+        GameManager.Instance.uiManager.StartDragging(item);
     }
 }

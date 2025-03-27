@@ -11,6 +11,5 @@ public class DamageTrigger : MonoBehaviour
             Debug.Log("Player took damage");
             collision.GetComponent<Player>().TakeDamage(damageAmount);
         }
-    }
-    
+    }    
 }

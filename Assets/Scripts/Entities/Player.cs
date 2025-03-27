@@ -19,15 +19,6 @@ public class Player : Character
         return playerInventory.AddItem(itemData);
     }
 
-    protected override void GetMovement()
-    {
-        if(!canMove) return;
-        horizontal = Input.GetAxis("Horizontal");
-        vertical = Input.GetAxis("Vertical");
-
-        isMoving = horizontal != 0 || vertical != 0;
-    }
-
     public override void SetHP(int amount)
     {
         base.SetHP(amount);
@@ -46,23 +37,32 @@ public class Player : Character
         GameManager.Instance.uiManager.UpdateHealthText(currentHp, maxHp);
     }
 
-    void Update()
+    protected override void GetMovement()
+    {
+        if (!canMove) return;
+        horizontal = Input.GetAxis("Horizontal");
+        vertical = Input.GetAxis("Vertical");
+
+        isMoving = horizontal != 0 || vertical != 0;
+    }
+
+    private void Update()
     {
         GetMovement();
 
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             GameManager.Instance.toolMenu.UseFoodItem(0);
         }
-        if(Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             GameManager.Instance.toolMenu.UseFoodItem(1);
         }
-        if(Input.GetKeyDown(KeyCode.Alpha3))
+        if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             GameManager.Instance.toolMenu.UseFoodItem(2);
         }
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             GameManager.Instance.toolMenu.UseQuickWeapon();
         }

@@ -7,7 +7,7 @@ public class ItemDrop : MonoBehaviour
 
     void Awake()
     {
-        sr = GetComponent<SpriteRenderer>();        
+        sr = GetComponent<SpriteRenderer>();
     }
 
     void Start()
@@ -20,16 +20,16 @@ public class ItemDrop : MonoBehaviour
     public void Setup(ItemData data, Vector2 initialPos)
     {
         itemData = data;
-        transform.position = initialPos;       
-        sr.sprite = itemData.icon;        
+        transform.position = initialPos;
+        sr.sprite = itemData.icon;
     }
-    void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
             //add item to player inventory
             var player = GameManager.Instance.player;
-            if(player.AddItemToInventory(itemData))
+            if (player.AddItemToInventory(itemData))
             {
                 Destroy(gameObject);
             }

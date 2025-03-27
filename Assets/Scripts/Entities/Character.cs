@@ -10,7 +10,7 @@ public class Character : MonoBehaviour
     private Rigidbody2D rb;
 
     //Animation params
-    int movementDirection = 0;
+    private int movementDirection = 0;
 
     //Movement
     [SerializeField] float speed = 5;
@@ -25,8 +25,8 @@ public class Character : MonoBehaviour
     protected int currentHp = 20;
     protected int currentCoins = 0;
 
-    public int CurrentHp{get => currentHp; private set => currentHp = value; }
-    public int Coins{get => currentCoins; private set => currentCoins = value; }
+    public int CurrentHp { get => currentHp; private set => currentHp = value; }
+    public int Coins { get => currentCoins; private set => currentCoins = value; }
 
     protected virtual void Awake()
     {
@@ -49,7 +49,7 @@ public class Character : MonoBehaviour
     {
         currentHp -= dmgAmount;
 
-        if(currentHp <= 0)
+        if (currentHp <= 0)
         {
             //dead
             controller.SetBool("dead", true);
@@ -75,7 +75,7 @@ public class Character : MonoBehaviour
         //Set the horizontal and vertical movement parameters here
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         ApplyMovement();
 
@@ -83,14 +83,14 @@ public class Character : MonoBehaviour
         controller.SetInteger("walking", movementDirection);
     }
 
-    void ApplyMovement()
+    private void ApplyMovement()
     {
         rb.linearVelocity = new Vector2(horizontal * speed, vertical * speed);
     }
 
-    void ApplyAnimations()
+    private void ApplyAnimations()
     {
-        if(!isMoving) 
+        if (!isMoving)
         {
             movementDirection = 0;
             return;
@@ -100,12 +100,12 @@ public class Character : MonoBehaviour
         float hVelocityAbs = Mathf.Abs(hVelocity);
         float vVelocityAbs = Mathf.Abs(vVelocity);
 
-        if(hVelocityAbs > vVelocityAbs) 
+        if (hVelocityAbs > vVelocityAbs)
         {
             movementDirection = 1;
             sr.flipX = hVelocity < 0;
         }
-        else 
+        else
         {
             movementDirection = vVelocity > 0 ? 2 : 3;
         }

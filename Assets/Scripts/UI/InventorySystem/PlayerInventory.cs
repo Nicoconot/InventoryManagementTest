@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,11 +18,6 @@ public class PlayerInventory : MonoBehaviour
     public bool AddItem(ItemData itemData)
     {
         return GameManager.Instance.inventoryManager.TryAddItemToPocket(itemData);
-    }
-
-    public void RemoveItem()
-    {
-
     }
 
     public void UpdateInventory()

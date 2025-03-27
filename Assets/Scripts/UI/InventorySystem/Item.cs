@@ -3,7 +3,6 @@
 public class Item 
 {
     public ItemData itemData;
-
     public int slot = -1;
 
     public Item(ItemData data)

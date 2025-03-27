@@ -1,4 +1,3 @@
-
 using TMPro;
 using UnityEngine;
 
@@ -11,21 +10,19 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Canvas mainUICanvas;
     [SerializeField] private Canvas temporaryElementsCanvas;
     [SerializeField] private Canvas optionsCanvas;
-
     [SerializeField] private TextMeshProUGUI saveLog;
     [SerializeField] private TextMeshProUGUI playerHealthText, uiHealthText;
 
     //public variables
-    public Transform PocketsParent {get => pocketsParent; private set => pocketsParent = value;}
-    public Canvas TemporaryElementsCanvas {get => temporaryElementsCanvas; private set => temporaryElementsCanvas = value;}
-    void Awake()
+    public Transform PocketsParent { get => pocketsParent; private set => pocketsParent = value; }
+    public Canvas TemporaryElementsCanvas { get => temporaryElementsCanvas; private set => temporaryElementsCanvas = value; }
+    private void Awake()
     {
         GameManager.Instance.uiManager = this;
         GameManager.Instance.OnInventoryPocketsReady += LoadGame;
     }
 
     #region Canvas management
-
     public void ToggleBagCanvas(bool active)
     {
         bagCanvas.enabled = active;
@@ -40,11 +37,9 @@ public class UIManager : MonoBehaviour
     {
         bagCanvas.GetComponent<CanvasGroup>().interactable = active;
     }
-
     #endregion
 
     #region Tooltip management
-
     public void ShowTooltip(string title, string description, Vector2 position, int buffType, int buffAmount = 0)
     {
         tooltip.UpdateTooltip(position, title, description, buffType, buffAmount);
@@ -55,14 +50,12 @@ public class UIManager : MonoBehaviour
     {
         tooltip.Hide();
     }
-
     #endregion
 
     #region Save actions
-
     public void SaveGame()
     {
-        if(GameManager.Instance.gameSerializer.CreateSaveData())
+        if (GameManager.Instance.gameSerializer.CreateSaveData())
         {
             saveLog.text = "Saved game successfully.";
         }
@@ -72,7 +65,7 @@ public class UIManager : MonoBehaviour
     public void LoadGame()
     {
         GameManager.Instance.OnInventoryPocketsReady -= LoadGame;
-        if(GameManager.Instance.gameSerializer.LoadSaveData())
+        if (GameManager.Instance.gameSerializer.LoadSaveData())
         {
             saveLog.text = "Loaded game successfully.";
         }
@@ -81,13 +74,12 @@ public class UIManager : MonoBehaviour
 
     public void DeleteSaveFile()
     {
-        if(GameManager.Instance.gameSerializer.DeleteSaveFile())
+        if (GameManager.Instance.gameSerializer.DeleteSaveFile())
         {
             saveLog.text = "Deleted saved game successfully.";
         }
         else saveLog.text = "There is no save file to delete.";
     }
-
     #endregion
 
     #region Drag and drop

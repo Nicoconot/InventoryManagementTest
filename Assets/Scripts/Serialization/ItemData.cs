@@ -10,7 +10,7 @@ public class ItemData : ScriptableObject
     [TextArea] public string description; //for hover text
 
     public int buffAmount = 0;
-    
+
     public virtual string GetPocketName()
     {
         return "";

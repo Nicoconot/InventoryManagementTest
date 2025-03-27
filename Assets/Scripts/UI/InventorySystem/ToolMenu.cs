@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class ToolMenu : MonoBehaviour
 {
-    [SerializeField]private Image weaponImage;
+    [SerializeField] private Image weaponImage;
     [SerializeField] private Image[] foodImages = new Image[3];
 
     [SerializeField] private Sprite defaultSprite;
@@ -11,61 +11,60 @@ public class ToolMenu : MonoBehaviour
     private Item[] quickFoods = new Item[3];
     private Item quickWeapon;
 
-    void Awake()
+    private void Awake()
     {
-        GameManager.Instance.OnInventoryManagerReady +=  Init;
+        GameManager.Instance.OnInventoryManagerReady += Init;
         GameManager.Instance.toolMenu = this;
     }
 
-    void Init()
+    private void Init()
     {
         GameManager.Instance.inventoryManager.OnInventoryChanged += UpdateView;
     }
 
     public void UseQuickWeapon()
     {
-        if(quickWeapon.itemData == null) return;
+        if (quickWeapon.itemData == null) return;
         GameManager.Instance.player.Attack();
     }
 
     public void UseFoodItem(int index)
     {
-        if(quickFoods[index].itemData == null) return;
+        if (quickFoods[index].itemData == null) return;
 
         GameManager.Instance.player.RecoverHealth(quickFoods[index].itemData.buffAmount);
         GameManager.Instance.inventoryManager.TryRemoveItemFromPocket(quickFoods[index]);
     }
 
-    void Clear()
+    private void Clear()
     {
         weaponImage.sprite = defaultSprite;
         quickWeapon = null;
 
-        foreach(var foodImg in foodImages)
+        foreach (var foodImg in foodImages)
         {
             foodImg.sprite = defaultSprite;
         }
 
-        for(int i = 0; i < foodImages.Length; i++)
+        for (int i = 0; i < foodImages.Length; i++)
         {
             foodImages[i].sprite = defaultSprite;
             quickFoods[i] = null;
         }
     }
 
-    void UpdateView()
+    private void UpdateView()
     {
         Clear();
         var inventoryManager = GameManager.Instance.inventoryManager;
         //Getting weapon
         var weapon = inventoryManager.GetFirstWeapon();
 
-        if(weapon != null)
+        if (weapon != null)
         {
             weaponImage.sprite = weapon.itemData.icon;
             quickWeapon = weapon;
         }
-        
 
         //Getting foods
         var foods = inventoryManager.GetFirstFoods(3);

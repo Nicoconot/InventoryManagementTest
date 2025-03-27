@@ -4,15 +4,15 @@ using UnityEngine.UI;
 
 public class Tooltip : MonoBehaviour
 {
-    private RectTransform rt;
-    private CanvasGroup canvasGroup;
-
-    private float originalSizeY;
     [SerializeField] private Sprite[] sprites = new Sprite[2];
     [SerializeField] private TextMeshProUGUI descriptionText, buffText, titleText;
     [SerializeField] private Image icon;
 
-    void Awake()
+    private RectTransform rt;
+    private CanvasGroup canvasGroup;
+    private float originalSizeY;
+
+    private void Awake()
     {
         rt = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
@@ -22,9 +22,9 @@ public class Tooltip : MonoBehaviour
     public void UpdateTooltip(Vector2 position, string title, string description, int buffType, int buffAmount = 0)
     {
         descriptionText.text = description;
-        titleText.text = title;        
+        titleText.text = title;
 
-        if(buffType != -1)
+        if (buffType != -1)
         {
             icon.enabled = true;
             icon.sprite = sprites[buffType];
@@ -44,7 +44,7 @@ public class Tooltip : MonoBehaviour
         (viewportPosition.x * canvasRt.sizeDelta.x) - (canvasRt.sizeDelta.x * 0.5f),
         (viewportPosition.y * canvasRt.sizeDelta.y) - (canvasRt.sizeDelta.y * 0.5f));
 
-        float verticalOffset = slot_screenPos.y -  originalSizeY + 10; //this is to counter the varying size of the tooltip
+        float verticalOffset = slot_screenPos.y - originalSizeY + 10; //this is to counter the varying size of the tooltip
 
         rt.anchoredPosition = new Vector2(slot_screenPos.x, verticalOffset);
     }

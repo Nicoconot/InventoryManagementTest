@@ -10,12 +10,28 @@ public class DragAndDropHandler : MonoBehaviour
     [SerializeField] private Image image;
 
     private Item draggingItem;
-    bool dragging;
+    private bool dragging;
 
     void Awake()
     {
         GameManager.Instance.dragAndDropHandler = this;
     }
+
+    public List<RaycastResult> RaycastMouse()
+    {
+
+        PointerEventData pointerData = new PointerEventData(EventSystem.current)
+        {
+            pointerId = -1,
+            position = Input.mousePosition
+        };
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerData, results);
+
+        return results;
+    }
+
     public void StartDragging(Item item)
     {
         draggingItem = item;
@@ -45,8 +61,8 @@ public class DragAndDropHandler : MonoBehaviour
                     //if slot is empty, move item to that slot
                     //otherwise, swap items
                     int slotIndex = slot.transform.GetSiblingIndex();
-                    if(slot.Item == null)
-                    {                        
+                    if (slot.Item == null)
+                    {
                         GameManager.Instance.inventoryManager.TryRemoveItemFromPocket(draggingItem);
                         draggingItem.slot = slotIndex;
                         GameManager.Instance.inventoryManager.TryAddItemToPocket(draggingItem);
@@ -55,11 +71,11 @@ public class DragAndDropHandler : MonoBehaviour
                     {
                         Item previousItem = slot.Item;
                         int prevItemSlotIndex = previousItem.slot;
-                        int draggingSlotIndex =  draggingItem.slot;
+                        int draggingSlotIndex = draggingItem.slot;
                         GameManager.Instance.inventoryManager.TryRemoveItemFromPocket(draggingItem);
                         GameManager.Instance.inventoryManager.TryRemoveItemFromPocket(previousItem);
                         previousItem.slot = draggingSlotIndex;
-                        draggingItem.slot = prevItemSlotIndex;      
+                        draggingItem.slot = prevItemSlotIndex;
                         GameManager.Instance.inventoryManager.TryAddItemToPocket(draggingItem);
                         GameManager.Instance.inventoryManager.TryAddItemToPocket(previousItem);
 
@@ -67,7 +83,7 @@ public class DragAndDropHandler : MonoBehaviour
                 }
                 break;
             }
-            if(result.gameObject.CompareTag("Trash"))
+            if (result.gameObject.CompareTag("Trash"))
             {
                 GameManager.Instance.inventoryManager.TryRemoveItemFromPocket(draggingItem);
             }
@@ -75,20 +91,20 @@ public class DragAndDropHandler : MonoBehaviour
         GameManager.Instance.uiManager.ToggleBagCanvasInteractable(true);
     }
 
-    void Update()
+    private void Update()
     {
         if (!dragging) return;
 
         SetRectTransformToMousePos();
 
-        if(Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0))
         {
             dragging = false;
             Drop();
         }
     }
 
-    void SetRectTransformToMousePos()
+    private void SetRectTransformToMousePos()
     {
         Vector2 mousePos = Input.mousePosition;
 
@@ -97,17 +113,5 @@ public class DragAndDropHandler : MonoBehaviour
         dragRt.anchoredPosition = localPoint;
     }
 
-    public List<RaycastResult> RaycastMouse(){
-		
-		PointerEventData pointerData = new PointerEventData (EventSystem.current)
-		{
-			pointerId = -1,
-            position = Input.mousePosition
-		};
 
-		List<RaycastResult> results = new List<RaycastResult>();
-		EventSystem.current.RaycastAll(pointerData, results);
-		
-		return results;
-	}
 }

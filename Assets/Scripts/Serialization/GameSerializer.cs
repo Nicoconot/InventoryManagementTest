@@ -12,8 +12,8 @@ public class GameSerializer : MonoBehaviour
     }
     public bool CreateSaveData()
     {
-        GameData gameData = new GameData(GameManager.Instance.inventoryManager.GetAllItems(), 
-        GameManager.Instance.player.CurrentHp, 
+        GameData gameData = new GameData(GameManager.Instance.inventoryManager.GetAllItems(),
+        GameManager.Instance.player.CurrentHp,
         GameManager.Instance.player.Coins);
 
         string jsonString = JsonUtility.ToJson(gameData);
@@ -26,7 +26,7 @@ public class GameSerializer : MonoBehaviour
     public bool LoadSaveData()
     {
         var data = ReadSaveData();
-        if(data == null) 
+        if (data == null)
         {
             print("Game data null");
             return false;
@@ -48,12 +48,8 @@ public class GameSerializer : MonoBehaviour
 
         return false;
     }
-    void WriteSaveData(string data)
-    {
-        File.WriteAllText(dataPath, data);
-    }
 
-    GameData ReadSaveData()
+    private GameData ReadSaveData()
     {
         if (File.Exists(dataPath))
         {
@@ -65,5 +61,10 @@ public class GameSerializer : MonoBehaviour
         }
 
         return null;
+    }
+
+    private void WriteSaveData(string data)
+    {
+        File.WriteAllText(dataPath, data);
     }
 }
