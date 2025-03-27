@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -87,5 +88,27 @@ public class InventoryManager : MonoBehaviour
         }
 
         return allItems;
+    }
+
+    public ItemData GetFirstWeapon()
+    {
+        var item = pockets.Find(x => x.pocketName == "Weapons").pocketItems.FirstOrDefault<Item>();
+        if (item == null) return null;
+        else return item.itemData;
+    }
+
+    public ItemData[] GetFirstFoods(int amount = 3)
+    {
+        ItemData[] foods = new ItemData[amount];
+
+        var foodList = pockets.Find(x => x.pocketName == "Food").pocketItems;
+
+        for(int i = 0; i < amount; i++)
+        {
+            if (i >= foodList.Count) break;
+            foods[i] = foodList[i].itemData;
+        }
+
+        return foods;
     }
 }
