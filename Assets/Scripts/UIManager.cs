@@ -20,7 +20,10 @@ public class UIManager : MonoBehaviour
     void Awake()
     {
         GameManager.Instance.uiManager = this;
+        GameManager.Instance.OnInventoryPocketsReady += LoadGame;
     }
+
+    #region Canvas management
 
     public void ToggleBagCanvas(bool active)
     {
@@ -31,6 +34,15 @@ public class UIManager : MonoBehaviour
     {
         optionsCanvas.enabled = active;
     }
+
+    public void ToggleBagCanvasInteractable(bool active)
+    {
+        bagCanvas.GetComponent<CanvasGroup>().interactable = active;
+    }
+
+    #endregion
+
+    #region Tooltip management
 
     public void ShowTooltip(string title, string description, Vector2 position, int buffType, int buffAmount = 0)
     {
@@ -43,6 +55,10 @@ public class UIManager : MonoBehaviour
         tooltip.Hide();
     }
 
+    #endregion
+
+    #region Save actions
+
     public void SaveGame()
     {
         if(GameManager.Instance.gameSerializer.CreateSaveData())
@@ -54,6 +70,7 @@ public class UIManager : MonoBehaviour
 
     public void LoadGame()
     {
+        GameManager.Instance.OnInventoryPocketsReady -= LoadGame;
         if(GameManager.Instance.gameSerializer.LoadSaveData())
         {
             saveLog.text = "Loaded game successfully.";
@@ -69,4 +86,13 @@ public class UIManager : MonoBehaviour
         }
         else saveLog.text = "There is no save file to delete.";
     }
+
+    #endregion
+
+    #region Drag and drop
+    public void StartDragging(Item item)
+    {
+        GameManager.Instance.dragAndDropHandler.StartDragging(item);
+    }
+    #endregion
 }

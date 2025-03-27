@@ -78,6 +78,34 @@ public class InventoryManager : MonoBehaviour
         return success;
     }
 
+    public bool TryAddItemToPocket(Item item)
+    {
+        Pocket pocket = pockets.Find(x => x.pocketName == item.itemData.GetPocketName());
+
+        if(pocket == null)
+        {
+            Debug.LogError($"Could not find pocket '{item.itemData.GetPocketName()}' in inventory manager.");
+            return false;
+        }
+
+        bool success = pocket.TryAddItem(item);
+        OnInventoryChanged?.Invoke();
+        return success;
+    }
+
+    public bool TryRemoveItemFromPocket(Item item)
+    {
+        Pocket pocket = pockets.Find(x => x.pocketName == item.itemData.GetPocketName());
+
+        if(pocket == null)
+        {
+            Debug.LogError($"Could not find pocket '{item.itemData.GetPocketName()}' in inventory manager.");
+            return false;
+        }
+
+        return pocket.TryRemoveItem(item);
+    }
+
     public List<Item> GetAllItems()
     {
         List<Item> allItems = new();
@@ -103,12 +131,24 @@ public class InventoryManager : MonoBehaviour
 
         var foodList = pockets.Find(x => x.pocketName == "Food").pocketItems;
 
+        var foodListArray  =  foodList.OrderBy(x => x.slot).ToArray();
+
         for(int i = 0; i < amount; i++)
         {
-            if (i >= foodList.Count) break;
-            foods[i] = foodList[i].itemData;
+            if (i >= foodListArray.Length) break;
+            
+            print($"{i}:{foodListArray[i].slot}");
+            foods[i] = foodListArray[i].itemData;
         }
 
         return foods;
+    }
+
+    public bool CheckIfPocketIsExpanded(string pocketName)
+    {
+        var pocket = pockets.Find(x => x.pocketName == pocketName);
+        if (pocket == null) return false;
+
+        return pocket.IsExpanded();
     }
 }

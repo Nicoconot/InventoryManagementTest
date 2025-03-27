@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public InventoryManager inventoryManager;
     public UIManager uiManager;
 
+    public DragAndDropHandler dragAndDropHandler;
+
     public GameSerializer gameSerializer;
     public Player player;
 

@@ -15,6 +15,7 @@ public class Player : Character
 
     public bool AddItemToInventory(ItemData itemData)
     {
+        controller.SetTrigger("pickup");
         return playerInventory.AddItem(itemData);
     }
 

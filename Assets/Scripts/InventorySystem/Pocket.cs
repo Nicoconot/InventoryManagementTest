@@ -26,25 +26,28 @@ public class Pocket : MonoBehaviour
         GameManager.Instance.OnInventoryManagerReady += PopulateSlots;
     }
 
-    void UpdateTitle()
+    void Refresh()
     {
         titleText.text = $"{pocketName}   {totalItems}/{maxSlots}";
+        pocketItems.OrderBy(x => x.slot);
     }
 
     void PopulateSlots()
     {
         GameManager.Instance.OnInventoryManagerReady -= PopulateSlots;
-        GameManager.Instance.inventoryManager.OnInventoryChanged += UpdateTitle;
+        GameManager.Instance.inventoryManager.OnInventoryChanged += Refresh;
 
         var slotPrefab = GameManager.Instance.inventoryManager.RetrievePrefab("inventorySlot");
 
         if(slotPrefab == null) return;
         for (int i = 0; i < maxSlots; i++)
         {
-            slots.Add(Instantiate(slotPrefab, slotsParent).GetComponent<InventorySlot>());
+            var slot =  Instantiate(slotPrefab, slotsParent).GetComponent<InventorySlot>();
+            slot.Setup(pocketName);
+            slots.Add(slot);            
         }        
 
-        UpdateTitle(); 
+        Refresh(); 
         GameManager.Instance.inventoryManager.RegisterPocket(this);  
     }
 
@@ -69,7 +72,7 @@ public class Pocket : MonoBehaviour
             }
             else
             {
-                slots[desiredSlot].Setup(currItem);
+                slots[desiredSlot].Setup(pocketName, currItem);
                 pocketItems.Add(currItem);
                 totalItems++;
             }
@@ -91,7 +94,7 @@ public class Pocket : MonoBehaviour
                 }
 
                 item.slot = slots.IndexOf(nextFreeSlot);
-                nextFreeSlot.Setup(item);
+                nextFreeSlot.Setup(pocketName, item);
                 pocketItems.Add(item);
                 totalItems++;
             }
@@ -103,7 +106,7 @@ public class Pocket : MonoBehaviour
             }
         }
 
-        pocketItems.OrderBy(x => x.slot);
+        Refresh();
     }
 
     public void ClearItems()
@@ -126,7 +129,7 @@ public class Pocket : MonoBehaviour
             var slot = slots[item.slot];
             if(slot.Item == null)
             {
-                slot.Setup(item);
+                slot.Setup(pocketName,  item);
                 pocketItems.Add(item);
                 totalItems++;
                 return true;
@@ -147,13 +150,26 @@ public class Pocket : MonoBehaviour
         }
 
         item.slot = slots.IndexOf(nextFreeSlot);
-        nextFreeSlot.Setup(item);
+        nextFreeSlot.Setup(pocketName, item);
         pocketItems.Add(item);
         totalItems++;
 
-        UpdateTitle();
+        Refresh();
 
         return true;
+    }
+
+    public bool TryRemoveItem(Item item)
+    {
+        slots[item.slot].Clear();
+        pocketItems.Remove(item);
+
+        return true;
+    }
+
+    public bool IsExpanded()
+    {
+        return slotsParent.parent.parent.GetComponent<ScrollViewController>().IsExpanded;
     }
 
 }

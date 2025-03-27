@@ -5,7 +5,7 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     //Components
-    private Animator controller;
+    protected Animator controller;
     private SpriteRenderer sr;
     private Rigidbody2D rb;
 
