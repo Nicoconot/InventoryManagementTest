@@ -57,6 +57,7 @@ public class ToolMenu : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         UpdateView();
+        GameManager.Instance.inventoryManager.OnInventoryChanged += UpdateView;
     }
 
     private void UpdateView()
