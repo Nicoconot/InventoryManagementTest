@@ -105,4 +105,11 @@ public class UIManager : MonoBehaviour
         uiHealthText.text = "HP" + text;
     }
     #endregion
+
+    #region Other Ui Generated Actions
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+    #endregion
 }

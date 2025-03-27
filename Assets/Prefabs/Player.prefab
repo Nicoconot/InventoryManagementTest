@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 381174989933991380}
   - component: {fileID: 820528332}
   - component: {fileID: 381174989933991379}
-  - component: {fileID: 381174989933991378}
+  - component: {fileID: 1237226987321285364}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -127,7 +127,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  playerInventory: {fileID: 820528332}
 --- !u!114 &820528332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,17 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eb81f24747c8bc4bb289a25ede76377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items:
-  - itemData: {fileID: 11400000, guid: 89b981894ba1cd944bb1242da74c53cc, type: 2}
-    slot: 0
-  - itemData: {fileID: 11400000, guid: 4ed65116bf11a4049a4bc2c74a057a8a, type: 2}
-    slot: 0
-  - itemData: {fileID: 11400000, guid: 06712fde30a835d428527a5b6f891fb3, type: 2}
-    slot: 0
-  - itemData: {fileID: 11400000, guid: 4dc947a8c64eaaf4ba4b3d51f6be11f6, type: 2}
-    slot: 1
-  - itemData: {fileID: 11400000, guid: 89b981894ba1cd944bb1242da74c53cc, type: 2}
-    slot: 3
+  items: []
 --- !u!50 &381174989933991379
 Rigidbody2D:
   serializedVersion: 5
@@ -178,8 +167,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!61 &381174989933991378
-BoxCollider2D:
+--- !u!70 &1237226987321285364
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -212,15 +201,6 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.077034205}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.6, y: 0.75406843}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0, y: 0.06}
+  m_Size: {x: 0.84, y: 0.8}
+  m_Direction: 0
